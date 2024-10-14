@@ -17,9 +17,11 @@ export default function Hero() {
               Discover our curated collection of premium watches. From classic designs to modern marvels, find the perfect timepiece to complement your style.
             </p>
             <div className="mt-8 sm:max-w-lg sm:mx-auto sm:text-center lg:text-left lg:mx-0">
+            <Link to='/shop'>
               <button className="rounded-md shadow bg-black text-white py-2 px-4 hover:bg-gray-800 transition duration-200 ease-in-out" size="xl">
                 Shop Now
               </button>
+              </Link>
             </div>
           </div>
           <div className="mt-12 relative sm:max-w-lg sm:mx-auto lg:mt-0 lg:max-w-none lg:mx-0 lg:col-span-6 lg:flex lg:items-center">
