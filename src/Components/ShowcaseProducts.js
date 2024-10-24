@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
-import { watches } from '../Data/watchData'; // Assume this contains the watches data
-import { Heart } from 'lucide-react';
+import { watches } from '../Data/watchData'; 
 import { useWishlist } from '../utils/Hooks/customHook';
 import './watch.css';
+
+const WatchCard = lazy(() => import('./WatchCard'));
 
 export default function WatchShowcase({ searchText }) {
   const navigate = useNavigate();
@@ -99,63 +100,37 @@ export default function WatchShowcase({ searchText }) {
           </div>
         </div>
 
-        {loading ? ( // Show loading while filtering/sorting:
+        {loading ? ( 
           <div className="text-center py-12">
             <p className="text-lg text-gray-500">Loading watches...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {filteredWatches.length > 0 ? (
-              filteredWatches.map((watch) => (
-                <div
-                  key={watch.id}
-                  className={'overflow-hidden bg-white shadow rounded-lg relative watch-card'} 
-                >
-                  <div className="relative h-64 bg-muted">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-48 h-48 bg-background rounded-full flex items-center justify-center">
-                        <img
-                          src={watch.imageUrl}
-                          alt={watch.name}
-                          className="object-cover w-48 h-48 rounded-full"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-semibold text-lg mb-1">{watch.brand}</h3>
-                    <p className="text-muted-foreground">{watch.name}</p>
-                    <div className="flex justify-between items-center">
-                      <p className="text-primary font-bold">${watch.price.toFixed(2)}</p>
-                      <button
-                        onClick={() => handleWatch(watch.id)}
-                        className="px-4 py-2 bg-[#F4F4F5] text-black rounded hover:bg-black hover:text-white"
-                      >
-                        View
-                      </button>
-                    </div>
-                    <button
-                    aria-label={isWishlisted(watch.id) ? 'Remove from Wishlist' : 'Add to Wishlist'}
-                      className={`absolute top-2 right-2 p-1 rounded-md ${isWishlisted(watch.id) ? "bg-red-500" : "bg-gray-200"}`}
-                      onClick={(e) => toggleWishList(e, watch)}
-                    >
-                      <Heart className="h-5 w-5 text-white" />
-                    </button>
-                  </div>
+          <Suspense fallback={<div className="text-center py-12"><p className="text-lg text-gray-500">Loading watch cards...</p></div>}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {filteredWatches.length > 0 ? (
+                filteredWatches.map((watch) => (
+                  <WatchCard 
+                    key={watch.id}
+                    watch={watch}
+                    isWishlisted={isWishlisted}
+                    toggleWishList={toggleWishList}
+                    handleWatch={handleWatch}
+                  />
+                ))
+              ) : (
+                <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center">
+                  {searchText === "" ? (
+                    <p className="text-lg text-gray-500">No watch found for the selected filter</p>
+                  ) : (
+                    <p className="text-lg text-gray-500">No watches found for <strong>"{searchText}"</strong>. Please try a different search.</p>
+                  )}
                 </div>
-              ))
-            ) : (
-              <div className="col-span-1 sm:col-span-2 lg:col-span-4 text-center">
-                {searchText === "" ? (
-                  <p className="text-lg text-gray-500">No watch found for the selected filter</p>
-                ) : (
-                  <p className="text-lg text-gray-500">No watches found for <strong>"{searchText}"</strong>. Please try a different search.</p>
-                )}
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          </Suspense>
         )}
       </div>
     </section>
   );
 }
+

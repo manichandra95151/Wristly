@@ -1,10 +1,9 @@
-/* Assuming you have a CSS file for your component */
 .watch-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   
   .watch-card:hover {
-    transform: translateY(-10px); /* Move the card up */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add shadow on hover */
+    transform: translateY(-10px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
   }
   

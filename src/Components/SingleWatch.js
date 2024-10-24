@@ -4,12 +4,12 @@ import { watches } from '../Data/watchData';
 import { Heart } from 'lucide-react';
 import { useWishlist } from '../utils/Hooks/customHook';
 import { useCart } from '../utils/Hooks/cartHook';
-import './watch.css'; // Import the new cart hook
+import './watch.css'; 
 
 export default function SingleWatchShowcase() {
   const { id } = useParams();
-  const { isWishlisted, toggleWishList } = useWishlist(); // Use wishlist hook
-  const { isAddedToCart, toggleCartItem } = useCart(); // Use cart hook
+  const { isWishlisted, toggleWishList } = useWishlist(); 
+  const { isAddedToCart, toggleCartItem } = useCart(); 
 
   const watch = watches.find((watch) => watch.id === Number(id));
 
