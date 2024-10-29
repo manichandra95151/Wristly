@@ -12,7 +12,6 @@ Wristly is an elegant and user-friendly watch management application that allows
 - [Usage](#usage)
 - [State Management](#state-management)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Features
 
