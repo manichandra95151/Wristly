@@ -4,6 +4,10 @@ Wristly is an elegant and user-friendly watch management application that allows
 
 ![Wristly](https://github.com/manichandra95151/Mani-s-Portfolio/blob/main/src/Data/imgaes/wristly.png?raw=true)
 
+## Live Demo
+
+Check out the live version of the project [here](https://wristly.vercel.app/).
+
 ## Table of Contents
 
 - [Features](#features)
